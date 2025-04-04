@@ -1,0 +1,354 @@
+:root {
+    --primary-color: #4CAF50;
+    --secondary-color: #2196F3;
+    --background-light: #f9f9f9;
+    --text-light: #333;
+    --background-dark: #222;
+    --text-dark: #f1f1f1;
+    --border-light: #ddd;
+    --border-dark: #444;
+    --missed-color: #f44336;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: var(--background-light);
+    color: var(--text-light);
+    transition: background-color 0.3s, color 0.3s;
+    line-height: 1.6;
+}
+
+.dark-mode {
+    background-color: var(--background-dark);
+    color: var(--text-dark);
+}
+
+.dark-mode .habit {
+    border-color: var(--border-dark);
+    background-color: #333;
+}
+
+.dark-mode .day {
+    border-color: #666;
+    color: #eee;
+}
+
+.dark-mode .progress {
+    background-color: #444;
+}
+
+.dark-mode button:not(.primary-btn):not(.delete-btn) {
+    background-color: #444;
+    color: #eee;
+    border-color: #666;
+}
+
+.dark-mode .intro-card {
+    background-color: #333;
+    border-color: #555;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+.dark-mode .container {
+    background-color: #2d2d2d;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+    color: var(--primary-color);
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+    font-weight: 300;
+}
+
+.dark-mode .subtitle {
+    color: #aaa;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.habit-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    font-size: 16px;
+    min-width: 200px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.dark-mode .habit-input {
+    background-color: #333;
+    color: #eee;
+    border-color: var(--border-dark);
+}
+
+button {
+    padding: 10px 15px;
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    transition: background-color 0.2s;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.primary-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+}
+
+.secondary-btn {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+}
+
+.danger-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+}
+
+.dark-mode-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.habit-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.habit {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 15px;
+    border: 1px solid var(--border-light);
+    margin: 10px 0;
+    border-radius: 4px;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.habit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.habit-name {
+    font-weight: 600;
+    margin-right: 10px;
+    flex: 1;
+    min-width: 120px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+}
+
+.streak {
+    display: inline-block;
+    margin-left: 10px;
+    color: #FF9800;
+    font-size: 14px;
+}
+
+.days {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin: 5px 0;
+}
+
+.day {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    position: relative;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.day.active {
+    cursor: pointer;
+}
+
+.day.active:hover {
+    transform: scale(1.1);
+}
+
+.day.inactive {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.day.missed {
+    background-color: var(--missed-color);
+    color: white;
+    border-color: var(--missed-color);
+}
+
+.day-label {
+    position: absolute;
+    bottom: -18px;
+    font-size: 10px;
+    color: #666;
+    font-weight: 500;
+}
+
+.dark-mode .day-label {
+    color: #aaa;
+}
+
+.completed {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.habit-info {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.progress-container {
+    display: flex;
+    align-items: center;
+    min-width: 150px;
+}
+
+.progress-label {
+    margin-right: 10px;
+    font-size: 12px;
+    color: #666;
+    min-width: 40px;
+    font-weight: 500;
+}
+
+.dark-mode .progress-label {
+    color: #aaa;
+}
+
+.progress {
+    flex: 1;
+    height: 8px;
+    background-color: #eee;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: var(--primary-color);
+    width: 0%;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.delete-btn {
+    background: none;
+    border: none;
+    color: #f44336;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px;
+    transition: transform 0.2s;
+}
+
+.delete-btn:hover {
+    transform: scale(1.2);
+}
+
+.intro-card {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.close-intro {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.no-habits {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-style: italic;
+    border: 2px dashed #ddd;
+    border-radius: 4px;
+    margin-top: 20px;
+    font-weight: 300;
+}
+
+.dark-mode .no-habits {
+    color: #aaa;
+    border-color: #444;
+}
+
+@media (max-width: 600px) {
+    .habit {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .days {
+        margin: 10px 0;
+    }
+    
+    .habit-info {
+        width: 100%;
+        justify-content: space-between;
+    }
+}

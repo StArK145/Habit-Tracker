@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Add these meta tags to the <head> section -->
+<meta name="theme-color" content="#4CAF50">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Habit Tracker">
+
+<!-- Add these link tags for Apple devices -->
+<link rel="apple-touch-icon" href="icons/icon-152x152.png">
+<link rel="apple-touch-icon" sizes="152x152" href="icons/icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/icon-192x192.png">
+<link rel="apple-touch-icon" sizes="167x167" href="icons/icon-152x152.png">
+    <title>Habit Tracker</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()" id="darkModeBtn" title="Toggle Dark/Light Mode">🌙</button>
+    
+    <div class="container">
+        <h1>Weekly Habit Tracker</h1>
+        <p class="subtitle">Track your daily habits and build lasting routines</p>
+        
+        <div id="introCard" class="intro-card">
+            <button class="close-intro" onclick="closeIntro()">✕</button>
+            <h3>📝 How to use this tracker:</h3>
+            <ol>
+                <li>Add habits you want to track (exercise, reading, meditation, etc.)</li>
+                <li>Click on today's circle when you complete your habit</li>
+                <li>Missed days will be marked in red</li>
+                <li>Complete your habit 7 days in a row to build your streak</li>
+                <li>Missing a day will reset your streak to 0</li>
+                <li>Your week will automatically reset when all days are complete</li>
+            </ol>
+            <p>💡 <strong>Tip:</strong> Consistency is key to forming new habits!</p>
+        </div>
+        
+        <div class="actions">
+            <input type="text" id="habitInput" class="habit-input" placeholder="Enter a new habit to track">
+            <button class="primary-btn" onclick="addHabit()">Add Habit</button>
+        </div>
+        
+        <div class="actions">
+            <button onclick="exportData()" title="Export your habits data">Export Data</button>
+            <button onclick="toggleIntroCard()">Show Help</button>
+        </div>
+        
+        <div id="habitListContainer">
+            <ul id="habitList" class="habit-list"></ul>
+            <div id="noHabits" class="no-habits" style="display: none;">
+                No habits added yet. Add your first habit to get started!
+            </div>
+        </div>
+    </div>
+    
+    <script src="./script.js"></script>
+    <script>
+        // Add this to your existing script section or create a new script tag
+
+// Check if the browser is online
+function updateOnlineStatus() {
+  const statusDisplay = document.createElement('div');
+  statusDisplay.id = 'status-display';
+  statusDisplay.style.position = 'fixed';
+  statusDisplay.style.bottom = '10px';
+  statusDisplay.style.right = '10px';
+  statusDisplay.style.padding = '5px 10px';
+  statusDisplay.style.borderRadius = '4px';
+  statusDisplay.style.fontSize = '12px';
+  statusDisplay.style.fontWeight = 'bold';
+  statusDisplay.style.zIndex = '1000';
+  
+  if (navigator.onLine) {
+    statusDisplay.textContent = 'Online Mode';
+    statusDisplay.style.backgroundColor = '#4CAF50';
+    statusDisplay.style.color = 'white';
+    
+    // Sync any pending changes if needed
+    syncPendingChanges();
+  } else {
+    statusDisplay.textContent = 'Offline Mode';
+    statusDisplay.style.backgroundColor = '#FF9800';
+    statusDisplay.style.color = 'white';
+  }
+  
+  // Remove existing status display if any
+  const existingDisplay = document.getElementById('status-display');
+  if (existingDisplay) {
+    existingDisplay.remove();
+  }
+  
+  document.body.appendChild(statusDisplay);
+  
+  // Auto hide after 3 seconds
+  setTimeout(() => {
+    statusDisplay.style.opacity = '0';
+    statusDisplay.style.transition = 'opacity 0.5s ease';
+    
+    // Remove from DOM after fade out
+    setTimeout(() => {
+      statusDisplay.remove();
+    }, 500);
+  }, 3000);
+}
+
+// Function to sync any pending changes when back online
+function syncPendingChanges() {
+  // This would be where you sync data with a server if needed
+  // For this local app, we don't need to do anything special
+}
+
+// Listen for online/offline events
+window.addEventListener('online', updateOnlineStatus);
+window.addEventListener('offline', updateOnlineStatus);
+
+// Check status on page load
+window.addEventListener('load', updateOnlineStatus);
+
+// Request notification permission
+function requestNotificationPermission() {
+  if ('Notification' in window) {
+    Notification.requestPermission().then(permission => {
+      if (permission === 'granted') {
+        // Setup notifications
+        setupNotifications();
+      }
+    });
+  }
+}
+
+// Setup notifications
+function setupNotifications() {
+  // This is where you would set up scheduled notifications
+  // For example, reminding users to complete their habits
+  
+  // Example registration for push notifications
+  if ('serviceWorker' in navigator && 'PushManager' in window) {
+    navigator.serviceWorker.ready.then(registration => {
+      // Use registration.pushManager.subscribe() to subscribe to push notifications
+      // This would typically involve a server endpoint for sending notifications
+    });
+  }
+}
+
+// Call this on user interaction, like a button click
+document.addEventListener('DOMContentLoaded', () => {
+  const actionButtons = document.querySelectorAll('.primary-btn, .secondary-btn');
+  actionButtons.forEach(button => {
+    button.addEventListener('click', requestNotificationPermission);
+  });
+});
+    </script>
+</body>
+</html>
